@@ -15,7 +15,7 @@ moving = False
 dragging = False
 
 world = World(surface_altitudes=[], bounce=0)
-hero = Hero(world=world, x=960, y=400, speed=7, velocity=12, ClimbSpeed=5)
+hero = Hero(world=world, x=960, y=400, speed=15, velocity=12, ClimbSpeed=5)
 render = Renderer(screen, hero, x=0, y=0)
 editor = Editor(screen, world, render, hero)
 

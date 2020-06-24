@@ -15,7 +15,9 @@ class Hero:
         self.width = 128
         self.sit_height = 80
         self.stand_height = 160
+        self.minimal_y = 10**100
         self.acceleration = 4
+        self.jump_power = -40
 
     # def render_hero(self, surface,):
     #     (x, y) = self.pos
@@ -23,6 +25,7 @@ class Hero:
     #     self.height = self.stand_height
 
     def _is_falling(self):
+        self.minimal_y = 10**100
         for ((x1, y1), (x2, _)) in self.world.surface_altitudes:
             (x1, x2) = (x2, x1) if x1 > x2 else (x1, x2)
             if (self.x <= x2) and (x1 <= (self.x + self.width)):
@@ -30,8 +33,9 @@ class Hero:
                     self.velocity = min(self.velocity, 0)
                     return False
                 if self.y < y1 < self.y + self.velocity:
-                    self.velocity = y1 - self.y
-                    return True
+                    if self.minimal_y > y1:
+                        self.minimal_y = y1
+                        self.velocity = y1 - self.y
         return True
 
     def move(self, direction):
@@ -39,7 +43,7 @@ class Hero:
 
     def jump(self):
         if not self._is_falling():
-            self.velocity = -30
+            self.velocity = self.jump_power
             self.y += self.velocity
 
     # def check_screen_box(self):
