@@ -14,8 +14,8 @@ done = False
 moving = False
 dragging = False
 
-world = World(surface_altitudes=[], bounce=0)
-hero = Hero(world=world, x=960, y=400, speed=15, velocity=12, ClimbSpeed=5)
+world = World(surface_altitudes=[], blocks=[], bounce=0)
+hero = Hero(world=world, x=960, y=400, speed=15, velocity=15, ClimbSpeed=5)
 render = Renderer(screen, hero, x=0, y=0)
 editor = Editor(screen, world, render, hero)
 
@@ -54,9 +54,7 @@ while not done:
     elif pressed[pygame.K_DOWN]:
         editor.mode.k_down()
 
-
     # moving = False
-
     # if not dragging:
     #     if pressed[pygame.K_LEFT]:
     #         render.horizontal_move(-1)

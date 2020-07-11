@@ -1,5 +1,6 @@
 import pygame
 import math
+from block import Block
 
 
 class Editor:
@@ -85,7 +86,8 @@ class MapEditorMode(EditorMode):
 
     def find_endpoint(self, posM):
         def in_circle(pos):
-            return self.radius >= math.sqrt((posM[0] + self.renderer.x - pos[0]) ** 2 + (posM[1] + self.renderer.y - pos[1]) ** 2)
+            return self.radius >= math.sqrt(
+                (posM[0] + self.renderer.x - pos[0]) ** 2 + (posM[1] + self.renderer.y - pos[1]) ** 2)
 
         for (pos1, pos2) in self.world.surface_altitudes:
             if in_circle(pos1):
@@ -109,44 +111,56 @@ class MapEditorMode(EditorMode):
         print(mouse_pos)
 
     def on_left_pressed(self):
-        self.check_grid()
 
-        if self.grid_on:
-            mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
-            self.renderer.draw_rect(mouse_pos)
-            self.world.append_rect(mouse_pos, self.renderer.width, self.renderer.hight)
-        elif not self.on_the_edge:
-            if not self.dragging:
-                self.pos1 = pygame.mouse.get_pos()
-                self.dragging = True
-                self.drawing_line = True
-            else:
-                self.pos2 = pygame.mouse.get_pos()
-                self.renderer.draw_line(self.pos1, self._calc_end_pos(), 4, 0)
-        elif not self.dragging:
-            self.pos1 = self.checkpoint_pos
-            self.dragging = True
-            self.drawing_line = True
-        elif self.dragging:
-            self.pos2 = pygame.mouse.get_pos()
-            self.renderer.draw_line(self.pos1, self._calc_end_pos(), 4, 0)
+        mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+
+        print(mouse_pos)
+        self.world.append_block(Block(mouse_pos[0], mouse_pos[1]))
+        self.world.on_block(mouse_pos)
+
+        # self.check_grid()
+        #
+        # if self.grid_on:
+        #     mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+        #     self.renderer.draw_rect(mouse_pos)
+        #     self.world.append_rect(mouse_pos, self.renderer.width, self.renderer.hight)
+        # elif not self.on_the_edge:
+        #     if not self.dragging:
+        #         self.pos1 = pygame.mouse.get_pos()
+        #         self.dragging = True
+        #         self.drawing_line = True
+        #     else:
+        #         self.pos2 = pygame.mouse.get_pos()
+        #         self.renderer.draw_line(self.pos1, self._calc_end_pos(), self.renderer.lineWidth, 0)
+        # elif not self.dragging:
+        #     self.pos1 = self.checkpoint_pos
+        #     self.dragging = True
+        #     self.drawing_line = True
+        # elif self.dragging:
+        #     self.pos2 = pygame.mouse.get_pos()
+        #     self.renderer.draw_line(self.pos1, self._calc_end_pos(), self.renderer.lineWidth, 0)
 
     def on_left_released(self):
-        print("waiting for command")
-        if self.drawing_line:
-            self.world.append_line(self.renderer.calculating_pos(self.pos1, self._calc_end_pos()))
-        if not self.dragging:
-            center = self.find_endpoint(pygame.mouse.get_pos())
-            if center is not None:
-                self.renderer.draw_circle(center, self.radius, self.color)
-                self.on_the_edge = True
-                self.checkpoint_pos = center
-        else:
-            self.on_the_edge = False
+
+        mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+
+        self.world.on_block(mouse_pos)
+
+        # print("waiting for command")
+        # if self.drawing_line:
+        #     self.world.append_line(self.renderer.calculating_pos(self.pos1, self._calc_end_pos()))
+        # if not self.dragging:
+        #     center = self.find_endpoint(pygame.mouse.get_pos())
+        #     if center is not None:
+        #         self.renderer.draw_circle(center, self.radius, self.color)
+        #         self.on_the_edge = True
+        #         self.checkpoint_pos = center
+        # else:
+        #     self.on_the_edge = False
         # else:
         #     if
-        self.dragging = False
-        self.drawing_line = False
+        # self.dragging = False
+        # self.drawing_line = False
 
     def k_left(self):
         self.renderer.horizontal_move(-1)
