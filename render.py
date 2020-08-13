@@ -8,19 +8,20 @@ class Renderer:
         self.x = x
         self.y = y
         self.screenWidth = 1920
-        self.screenHight = 1080
+        self.screenHeight = 1080
         self.speed = 10
         self.lineWidth = 4
         self.width = 10
-        self.hight = 10
-        self.gridWide = 10
+        self.height = 10
+        self.gridWide = 30
         self.color = (0, 0, 0)
         self.hero = hero
 
     # Primitives
 
-    def draw_rect(self, pos, width, hight, color):
-        pygame.draw.rect(self.screen, color, (pos[0] - self.x, pos[1] - self.y, width, hight))
+    def draw_rect(self, pos, width, height, color):
+        print(f"{pos} {color} {(pos[0] - self.x, pos[1] - self.y, width, height)}")
+        pygame.draw.rect(self.screen, color, (pos[0] - self.x, pos[1] - self.y, width, height))
 
     def draw_line(self, pos1, pos2, width, color):
         pygame.draw.line(self.screen, color, pos1, pos2, width)
@@ -72,16 +73,20 @@ class Renderer:
         self.y += direction * speed
         print(direction * speed)
 
+    def real_pos(self, pos):
+        return (pos[0] + self.x, pos[1] + self.y)
+
     def pos_on_grid(self, pos):
         return (pos[0] + self.x) - ((pos[0] + self.x) % self.gridWide), (pos[1] + self.y) - (
                 (pos[1] + self.y) % self.gridWide)
 
     def in_screen(self, pos, width, hight):
-        if (self.x <= pos[0] or self.x <= (pos[0] + width)) and (
-                self.y <= pos[1] or self.y <= (pos[1] + hight)) and (
-                (self.x + self.screenWidth) >= pos[0] or (self.x + self.screenWidth) >= (
-                pos[0] + width)) and (
-                (self.y + self.screenHight) >= pos[1] or (self.y + self.screenHight) >= (pos[1] + width)):
+        # if (self.x <= pos[0] or self.x <= (pos[0] + width)) and (
+        #         self.y <= pos[1] or self.y <= (pos[1] + hight)) and (
+        #         (self.x + self.screenWidth) >= pos[0] or (self.x + self.screenWidth) >= (
+        #         pos[0] + width)) and (
+        #         (self.y + self.screenHight) >= pos[1] or (self.y + self.screenHight) >= (pos[1] + width)):
+        if (self.x <= (pos[0] + width)) and (self.y <= (pos[1] + hight)) and ((self.x + self.screenWidth) >= pos[0]) and ((self.y + self.screenHeight) >= pos[1]):
             return True
         else:
             return False

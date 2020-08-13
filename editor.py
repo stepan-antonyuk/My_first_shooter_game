@@ -26,6 +26,9 @@ class Editor:
 
 
 class EditorMode:
+    def __init__(self, name):
+        self.name = name
+
     def before(self):
         raise NotImplementedError()
 
@@ -39,6 +42,8 @@ class EditorMode:
 class GameEditorMode(EditorMode):
 
     def __init__(self, screen, world, render, hero):
+        super().__init__('game')
+
         self.world = world
         self.screen = screen
         self.render = render
@@ -72,6 +77,8 @@ class GameEditorMode(EditorMode):
 class MapEditorMode(EditorMode):
 
     def __init__(self, world, render):
+        super().__init__('map')
+
         self.world = world
         self.renderer = render
         self.dragging = False
@@ -112,10 +119,10 @@ class MapEditorMode(EditorMode):
 
     def on_left_pressed(self):
 
-        mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+        mouse_pos_grid = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+        mouse_pos = self.renderer.real_pos(pygame.mouse.get_pos())
 
-        print(mouse_pos)
-        self.world.append_block(Block(mouse_pos[0], mouse_pos[1]))
+        self.world.append_block(Block(mouse_pos_grid[0], mouse_pos_grid[1]))
         self.world.on_block(mouse_pos)
 
         # self.check_grid()
@@ -142,7 +149,8 @@ class MapEditorMode(EditorMode):
 
     def on_left_released(self):
 
-        mouse_pos = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+        # mouse_pos_grid = self.renderer.pos_on_grid(pygame.mouse.get_pos())
+        mouse_pos = self.renderer.real_pos(pygame.mouse.get_pos())
 
         self.world.on_block(mouse_pos)
 

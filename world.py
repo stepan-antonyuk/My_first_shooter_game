@@ -35,10 +35,8 @@ class World:
 
     def on_block(self, posM):
         for block in self.blocks:
-            if block.in_block(posM):
-                block.change_color((255, 0, 0))
-            else:
-                block.change_color((0, 0, 0))
+            block.in_block(posM)
+
     # def change_surface(self, coordinates):
     #     self.surface_altitudes = coordinates
 
