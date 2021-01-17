@@ -10,7 +10,7 @@ FPS = 60
 HOR_SPEED = 12
 clock = pygame.time.Clock()
 pygame.init()
-screen = pygame.display.set_mode(flags=pygame.FULLSCREEN)
+screen = pygame.display.set_mode()
 surface = pygame.Surface((500, 500))
 done = False
 moving = False
@@ -21,8 +21,8 @@ hero = Hero(world=world, x=960, y=400, speed=15, velocity=15, ClimbSpeed=5)
 render = Renderer(surface, hero, x=0, y=0)
 editor = Editor(screen, world, render, hero)
 
-GameMode = False
-MapMode = True
+# GameMode = False
+# MapMode = True
 
 universe = Universe()
 
@@ -31,6 +31,10 @@ translation_map = {
         'key_pressed': {
             pygame.K_UP: JumpAction(),
             pygame.K_DOWN: DebugAction("CROUCH"),
+            pygame.K_LEFT: MoveAction(-1),
+            pygame.K_RIGHT: MoveAction(1),
+            pygame.KMOD_SHIFT: RunAction(), #TODO not eve print
+            pygame.KMOD_NONE: StandAction() #TODO not even print
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("map")
@@ -40,6 +44,8 @@ translation_map = {
         'key_pressed': {
             pygame.K_UP: DebugAction("Pressed UP"),
             pygame.K_DOWN: DebugAction("Pressed DOWN"),
+            pygame.K_LEFT: DebugAction("Pressed LEFT"),
+            pygame.K_RIGHT: DebugAction("Pressed Right"),
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("game")
@@ -71,11 +77,11 @@ while not done:
             if action.is_done():
                 done = True
             else:
-                action.change_universe(unKiverse)
+                action.change_universe(universe)
 
     universe.update()
     # render_universe()
-    clock.tick(2)
+    clock.tick(FPS)
 
 # if False:
 #     for event in pygame.event.get():
