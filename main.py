@@ -33,12 +33,18 @@ translation_map = {
             pygame.K_DOWN: DebugAction("CROUCH"),
             pygame.K_LEFT: MoveAction(-1),
             pygame.K_RIGHT: MoveAction(1),
-            pygame.KMOD_SHIFT: RunAction(), #TODO not eve print
-            pygame.KMOD_NONE: StandAction() #TODO not even print
+            pygame.K_LSHIFT: RunAction(),
+            pygame.KMOD_NONE: StandAction()
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("map")
+        },
+        'key_not_pressed': {
+            pygame.K_LSHIFT: StopRunAction()
         }
+        # 'key_up': {
+        #     pygame.K_LSHIFT: StopRunAction()
+        # }
     },
     'map': {
         'key_pressed': {
@@ -64,8 +70,15 @@ def translate_event(mode, event):
         if action:
             return [action]
 
+    # if event.type == pygame.KEYUP:
+    #     action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
+    #     if action:
+    #         return [action]
+
+    key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
+
     key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
-    return [action for key, action in key_pressed.items() if pressed[key]]
+    return [action for key, action in key_pressed.items() if pressed[key]] #, action in key_not_pressed.items() if not pressed[key]]
 
 
 while not done:

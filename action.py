@@ -50,20 +50,29 @@ class MoveAction(Action):
         self.direction = direction
 
     def change_universe(self, universe):
+        # if universe.hero.state != "running":
+        #     universe.hero.state = "moving"
         universe.hero.direction = self.direction
         universe.hero.move()
 
 
 class RunAction(Action):
     @staticmethod
-    def change_status_to_run(universe):
+    def change_universe(universe):
         print("run boy run")
-        universe.hero.state = "running"
+        universe.hero.extra = 2
+
+
+class StopRunAction(Action):
+    @staticmethod
+    def change_universe(universe):
+        print("Stop, wait a min")
+        universe.hero.extra = 1
 
 
 class StandAction(Action):
     @staticmethod
-    def change_status_to_standing(universe):
+    def change_universe(universe):
         universe.hero.state = "standing"
         print("standing")
 

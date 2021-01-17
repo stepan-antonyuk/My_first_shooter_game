@@ -5,13 +5,9 @@ class Character:
         self.speed = 5
         self.sprint = 10
         self.direction = 0
+        self.extra = 1
 
     def move(self):
 
-        if self.state == "running":
-            extra = 2
-        else:
-            extra = 1
-
-        self.location = (self.location[0] + self.direction * self.speed * extra, self.location[1])
+        self.location = (self.location[0] + self.direction * self.speed * self.extra, self.location[1])
         print(self.location)
