@@ -24,7 +24,7 @@ dragging = False
 # GameMode = False
 # MapMode = True
 
-universe = Universe(surface_altitudes=[((0,500),(1920, 500))])
+universe = Universe()
 
 translation_map = {
     'game': {
@@ -57,7 +57,11 @@ translation_map = {
         'key_not_pressed': {
         },
         'key_down': {
-            pygame.K_e: ChangeModeAction("game")
+            pygame.K_e: ChangeModeAction("game"),
+            pygame.MOUSEBUTTONDOWN: MouseDAction()
+        },
+        'key_up': {
+            pygame.MOUSEBUTTONUP: MouseUAction()
         }
     }
 }

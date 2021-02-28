@@ -80,3 +80,17 @@ class StandAction(Action):
 class CrouchAction(Action):
     def change_universe(self, universe):
         universe.hero.state = "crouch"
+
+
+class MouseDAction(Action):
+    # print("standing")
+    def change_universe(self, universe):
+        universe.pointPressed = universe.mouseCoords
+        print(universe.pointPressed)
+
+
+class MouseUAction(Action):
+    # print("standing")
+    def change_universe(self, universe):
+        universe.pointLeft = universe.mouseCoords
+        print(universe.pointLeft)

@@ -3,11 +3,14 @@ from Character import Character
 
 
 class Universe:
-    def __init__(self, surface_altitudes):
-        self.surface_altitudes = surface_altitudes
+    def __init__(self):
+        self.surface_altitudes = []
         self.hero = Character()
         self.mode = "map"
+        self.buildMode = "line"
         self.mouseCoords = (0, 0)
+        self.pointPressed = (0,0)
+        self.pointLeft = (0,0)
         self.gravity = -5
 
     def update(self):
@@ -16,3 +19,6 @@ class Universe:
 
     def gravity(self):
         Character.gravity(self.gravity)
+
+    # def build(self):
+    #     if self.buildMode == "line":
