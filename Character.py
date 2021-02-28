@@ -8,6 +8,8 @@ class Character:
         self.extra = 1
 
     def move(self):
-
         self.location = (self.location[0] + self.direction * self.speed * self.extra, self.location[1])
         print(self.location)
+
+    def gravity(self, gravity):
+        self.location[1] += gravity

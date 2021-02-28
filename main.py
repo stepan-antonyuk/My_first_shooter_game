@@ -1,12 +1,12 @@
 import pygame
 
 from action import *
-from world import World
-from hero import Hero
-from editor import Editor
-from render import Renderer
+# from world import World
+# from hero import Hero
+# from editor import Editor
+# from render import Renderer
 
-FPS = 60
+FPS = 600
 HOR_SPEED = 12
 clock = pygame.time.Clock()
 pygame.init()
@@ -16,15 +16,15 @@ done = False
 moving = False
 dragging = False
 
-world = World(surface_altitudes=[], blocks=[], bounce=0)
-hero = Hero(world=world, x=960, y=400, speed=15, velocity=15, ClimbSpeed=5)
-render = Renderer(surface, hero, x=0, y=0)
-editor = Editor(screen, world, render, hero)
+# world = World(surface_altitudes=[(0,1080)], blocks=[], bounce=0)
+# hero = Hero(world=world, x=960, y=400, speed=15, velocity=15, ClimbSpeed=5)
+# render = Renderer(surface, hero, x=0, y=0)
+# editor = Editor(screen, world, render, hero)
 
 # GameMode = False
 # MapMode = True
 
-universe = Universe()
+universe = Universe(surface_altitudes=[((0,500),(1920, 500))])
 
 translation_map = {
     'game': {
@@ -33,18 +33,19 @@ translation_map = {
             pygame.K_DOWN: DebugAction("CROUCH"),
             pygame.K_LEFT: MoveAction(-1),
             pygame.K_RIGHT: MoveAction(1),
-            pygame.K_LSHIFT: RunAction(),
-            pygame.KMOD_NONE: StandAction()
-        },
-        'key_down': {
-            pygame.K_e: ChangeModeAction("map")
+            # pygame.K_LSHIFT: RunAction(),
+            # pygame.KMOD_NONE: StandAction()
         },
         'key_not_pressed': {
+            # pygame.K_LSHIFT: StopRunAction()
+        },
+        'key_down': {
+            pygame.K_e: ChangeModeAction("map"),
+            pygame.K_LSHIFT: RunAction(),
+        },
+        'key_up': {
             pygame.K_LSHIFT: StopRunAction()
         }
-        # 'key_up': {
-        #     pygame.K_LSHIFT: StopRunAction()
-        # }
     },
     'map': {
         'key_pressed': {
@@ -52,6 +53,8 @@ translation_map = {
             pygame.K_DOWN: DebugAction("Pressed DOWN"),
             pygame.K_LEFT: DebugAction("Pressed LEFT"),
             pygame.K_RIGHT: DebugAction("Pressed Right"),
+        },
+        'key_not_pressed': {
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("game")
@@ -70,15 +73,18 @@ def translate_event(mode, event):
         if action:
             return [action]
 
-    # if event.type == pygame.KEYUP:
-    #     action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
-    #     if action:
-    #         return [action]
-
-    key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
+    if event.type == pygame.KEYUP:
+        action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
+        if action:
+            return [action]
 
     key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
-    return [action for key, action in key_pressed.items() if pressed[key]] #, action in key_not_pressed.items() if not pressed[key]]
+    key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
+
+    return (
+        [action for key, action in key_pressed.items() if pressed[key]] +
+        [action for key, action in key_not_pressed.items() if not pressed[key]]
+    )
 
 
 while not done:

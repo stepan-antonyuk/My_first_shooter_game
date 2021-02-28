@@ -3,13 +3,11 @@
 
 
 class World:
-    LEFT = -1
-    RIGHT = 1
 
     def __init__(self, surface_altitudes, blocks, bounce):
         self.surface_altitudes = surface_altitudes
-        self.blocks = blocks
-        self.bounce = bounce
+        # self.blocks = blocks
+        # self.bounce = bounce
 
     # def check_duplicates(self,pos1, pos2):
     #     for pos in self.surface_altitudes
@@ -18,8 +16,8 @@ class World:
     #     if self.check_for_duplicate(pos):
     #         self.surface_altitudes.append(pos)
 
-    def append_block(self, inf):
-        self.blocks.append(inf)
+    # def append_block(self, inf):
+    #     self.blocks.append(inf)
 
     # def append_rect(self, pos, wide, high):
     #     self.append_line((pos, (pos[0] + wide, pos[1])))
@@ -30,12 +28,12 @@ class World:
     # def return_coordinate(self):
     #     return self.surface_altitudes
 
-    def return_coordinate(self):
-        return self.blocks
-
-    def on_block(self, posM):
-        for block in self.blocks:
-            block.in_block(posM)
+    # def return_coordinate(self):
+    #     return self.blocks
+    #
+    # def on_block(self, posM):
+    #     for block in self.blocks:
+    #         block.in_block(posM)
 
     # def change_surface(self, coordinates):
     #     self.surface_altitudes = coordinates
