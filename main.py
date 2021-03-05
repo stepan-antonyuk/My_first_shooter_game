@@ -1,6 +1,6 @@
 import pygame
 
-from action import *
+from actions import *
 # from world import World
 # from hero import Hero
 # from editor import Editor
@@ -33,18 +33,18 @@ translation_map = {
             pygame.K_DOWN: DebugAction("CROUCH"),
             pygame.K_LEFT: MoveAction(-1),
             pygame.K_RIGHT: MoveAction(1),
-            # pygame.K_LSHIFT: RunAction(),
+            pygame.K_LSHIFT: RunAction(),
             # pygame.KMOD_NONE: StandAction()
         },
         'key_not_pressed': {
-            # pygame.K_LSHIFT: StopRunAction()
+            pygame.K_LSHIFT: StopRunAction()
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("map"),
-            pygame.K_LSHIFT: RunAction(),
+            # pygame.K_LSHIFT: RunAction(),
         },
         'key_up': {
-            pygame.K_LSHIFT: StopRunAction()
+            # pygame.K_LSHIFT: StopRunAction()
         }
     },
     'map': {
@@ -68,23 +68,23 @@ translation_map = {
 
 
 def translate_event(mode, event):
-    pressed = pygame.key.get_pressed()
     if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
         return [DoneAction()]
 
     if event.type == pygame.KEYDOWN:
-        action = translation_map.get(mode, {}).get('key_down', {}).get(event.key)
-        if action:
-            return [action]
+        key_down_action = translation_map.get(mode, {}).get('key_down', {}).get(event.key)
+        if key_down_action:
+            return [key_down_action]
 
     if event.type == pygame.KEYUP:
-        action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
-        if action:
-            return [action]
+        key_up_action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
+        if key_up_action:
+            return [key_up_action]
 
     key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
     key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
 
+    pressed = pygame.key.get_pressed()
     return (
         [action for key, action in key_pressed.items() if pressed[key]] +
         [action for key, action in key_not_pressed.items() if not pressed[key]]

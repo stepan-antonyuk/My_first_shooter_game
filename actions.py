@@ -57,15 +57,13 @@ class MoveAction(Action):
 
 
 class RunAction(Action):
-    @staticmethod
-    def change_universe(universe):
+    def change_universe(self, universe):
         print("run boy run")
         universe.hero.extra = 2
 
 
 class StopRunAction(Action):
-    @staticmethod
-    def change_universe(universe):
+    def change_universe(self, universe):
         print("Stop, wait a min")
         universe.hero.extra = 1
 
@@ -91,6 +89,6 @@ class MouseDAction(Action):
 
 class MouseUAction(Action):
     # print("standing")
-    def change_universe(self, universe):
-        universe.pointLeft = universe.mouseCoords
-        print(universe.pointLeft)
+    def change_universe(self, universe: Universe):
+        universe.surface_altitudes.append(universe.pointPressed, universe.mouseCoords)
+        print(universe.mouseCoords)
