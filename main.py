@@ -1,6 +1,6 @@
 import pygame
 
-from actions import *
+from action import *
 # from world import World
 # from hero import Hero
 # from editor import Editor
@@ -12,7 +12,6 @@ clock = pygame.time.Clock()
 pygame.init()
 screen = pygame.display.set_mode()
 surface = pygame.Surface((500, 500))
-done = False
 moving = False
 dragging = False
 
@@ -66,20 +65,19 @@ translation_map = {
     }
 }
 
-
 def translate_event(mode, event):
     if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
         return [DoneAction()]
 
     if event.type == pygame.KEYDOWN:
-        key_down_action = translation_map.get(mode, {}).get('key_down', {}).get(event.key)
-        if key_down_action:
-            return [key_down_action]
+        action = translation_map.get(mode, {}).get('key_down', {}).get(event.key)
+        if action:
+            return [action]
 
     if event.type == pygame.KEYUP:
-        key_up_action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
-        if key_up_action:
-            return [key_up_action]
+        action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
+        if action:
+            return [action]
 
     key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
     key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
@@ -91,20 +89,24 @@ def translate_event(mode, event):
     )
 
 
-while not done:
-    for event in pygame.event.get():
-        universe.mouseCoord = pygame.mouse.get_pos()
-        actions = translate_event(universe.mode, event)
+def main_loop():
+    done = False
+    while not done:
+        for event in pygame.event.get():
+            universe.mouseCoord = pygame.mouse.get_pos()
+            actions = translate_event(universe.mode, event)
 
-        for action in actions:
-            if action.is_done():
-                done = True
-            else:
-                action.change_universe(universe)
+            for action in actions:
+                if action.is_done():
+                    done = True
+                else:
+                    action.change_universe(universe)
 
-    universe.update()
-    # render_universe()
-    clock.tick(FPS)
+        universe.update()
+        # render_universe()
+        clock.tick(FPS)
+
+main_loop()
 
 # if False:
 #     for event in pygame.event.get():
