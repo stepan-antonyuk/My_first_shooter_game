@@ -3,7 +3,10 @@ import pygame
 from action import *
 
 
-translation_map = {
+FPS = 600
+HOR_SPEED = 12
+
+TRANSLATION_MAP = {
     'game': {
         'key_pressed': {
             pygame.K_UP: JumpAction(),

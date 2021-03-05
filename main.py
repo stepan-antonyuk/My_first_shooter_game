@@ -10,8 +10,6 @@ from universe import Universe
 # from editor import Editor
 # from render import Renderer
 
-FPS = 600
-HOR_SPEED = 12
 clock = pygame.time.Clock()
 pygame.init()
 screen = pygame.display.set_mode()
@@ -31,7 +29,7 @@ universe = Universe()
 
 
 def main_loop():
-    translator = Translator(settings.translation_map, DoneAction())
+    translator = Translator(settings.TRANSLATION_MAP, DoneAction())
 
     def collect_actions():
         result = translator.translate_pressed(universe.mode)
@@ -51,7 +49,7 @@ def main_loop():
 
         universe.update()
         # render_universe()
-        clock.tick(FPS)
+        clock.tick(settings.FPS)
 
 
 if __name__ == "__main__":
