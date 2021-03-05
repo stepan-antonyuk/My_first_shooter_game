@@ -65,6 +65,7 @@ translation_map = {
     }
 }
 
+
 def translate_event(mode, event):
     if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
         return [DoneAction()]
@@ -106,69 +107,7 @@ def main_loop():
         # render_universe()
         clock.tick(FPS)
 
-main_loop()
 
-# if False:
-#     for event in pygame.event.get():
-#         if event.type == pygame.QUIT:
-#             done = True
-#         elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-#             done = True
-#
-#     pressed = pygame.key.get_pressed()
-#
-#     screen.fill((255, 255, 255))
-#
-#     dragging = False
-#
-#     surface.fill((255, 255, 255))
-#
-#     GameMode = editor.on_pressed(pygame.key.get_pressed())
-#     editor.mode.before()
-#     # if not moving:
-#     if pygame.mouse.get_pressed()[0]:
-#         editor.mode.on_left_pressed()
-#         dragging = True
-#     else:
-#         editor.mode.on_left_released()
-#
-#     if pressed[pygame.K_LEFT]:
-#         editor.mode.k_left()
-#     elif pressed[pygame.K_RIGHT]:
-#         editor.mode.k_right()
-#
-#     if pressed[pygame.K_UP]:
-#         editor.mode.k_up()
-#     elif pressed[pygame.K_DOWN]:
-#         editor.mode.k_down()
-#
-#     # moving = False
-#     # if not dragging:
-#     #     if pressed[pygame.K_LEFT]:
-#     #         render.horizontal_move(-1)
-#     #         moving = True
-#     #     elif pressed[pygame.K_RIGHT]:
-#     #         render.horizontal_move(1)
-#     #         moving = True
-#     #
-#     #     if pressed[pygame.K_UP]:
-#     #         render.vertical_move(-1)
-#     #         moving = True
-#     #     elif pressed[pygame.K_DOWN]:
-#     #         render.vertical_move(1)
-#     #         moving = True
-#
-#     # if GameMode:
-#     #     if pressed[pygame.K_RIGHT]:
-#     #         hero.move(world.RIGHT)
-#     #     elif pressed[pygame.K_LEFT]:
-#     #         hero.move(world.LEFT)
-#     #     hero.render_hero(screen)
-#
-#     render.draw_ground_line(world.return_coordinate())
-#     screen.blit(surface, (300, 300))
-#
-#     pygame.display.flip()
-#     clock.tick(FPS)
-
-pygame.quit()
+if __name__ == "__main__":
+    main_loop()
+    pygame.quit()
