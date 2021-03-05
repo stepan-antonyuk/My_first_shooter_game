@@ -80,6 +80,10 @@ def translate_event(mode, event):
         if action:
             return [action]
 
+    return []
+
+
+def translate_pressed(mode):
     key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
     key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
 
@@ -91,17 +95,21 @@ def translate_event(mode, event):
 
 
 def main_loop():
-    done = False
-    while not done:
+    def collect_actions():
+        result = translate_pressed(universe.mode)
         for event in pygame.event.get():
             universe.mouseCoord = pygame.mouse.get_pos()
-            actions = translate_event(universe.mode, event)
+            result += translate_event(universe.mode, event)
+        return result
 
-            for action in actions:
-                if action.is_done():
-                    done = True
-                else:
-                    action.change_universe(universe)
+    while True:
+        actions = collect_actions()
+
+        if any(action.is_done() for action in actions):
+            break
+
+        for action in actions:
+            action.change_universe(universe)
 
         universe.update()
         # render_universe()
