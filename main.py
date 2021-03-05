@@ -1,6 +1,7 @@
 import pygame
 
 from action import *
+from translator import Translator
 # from world import World
 # from hero import Hero
 # from editor import Editor
@@ -66,40 +67,14 @@ translation_map = {
 }
 
 
-def translate_event(mode, event):
-    if event.type == pygame.QUIT or event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-        return [DoneAction()]
-
-    if event.type == pygame.KEYDOWN:
-        action = translation_map.get(mode, {}).get('key_down', {}).get(event.key)
-        if action:
-            return [action]
-
-    if event.type == pygame.KEYUP:
-        action = translation_map.get(mode, {}).get('key_up', {}).get(event.key)
-        if action:
-            return [action]
-
-    return []
-
-
-def translate_pressed(mode):
-    key_pressed = translation_map.get(mode, {}).get('key_pressed', {})
-    key_not_pressed = translation_map.get(mode, {}).get('key_not_pressed', {})
-
-    pressed = pygame.key.get_pressed()
-    return (
-        [action for key, action in key_pressed.items() if pressed[key]] +
-        [action for key, action in key_not_pressed.items() if not pressed[key]]
-    )
-
-
 def main_loop():
+    translator = Translator(translation_map, DoneAction())
+
     def collect_actions():
-        result = translate_pressed(universe.mode)
+        result = translator.translate_pressed(universe.mode)
         for event in pygame.event.get():
             universe.mouseCoord = pygame.mouse.get_pos()
-            result += translate_event(universe.mode, event)
+            result += translator.translate_event(universe.mode, event)
         return result
 
     while True:
