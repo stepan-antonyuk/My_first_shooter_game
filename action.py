@@ -1,4 +1,4 @@
-from Universe import Universe
+from universe import Universe
 
 
 class Action:
