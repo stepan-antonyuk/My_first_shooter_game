@@ -19,4 +19,4 @@ class CoordConverter:
         (x, y) = point
         ((xv, yv), (_, _)) = self.viewport
 
-        return (int(x_scale * (x + xv)), int(y_scale * (y + yv)))
+        return (int(x * x_scale + xv), int(y * y_scale + yv))
