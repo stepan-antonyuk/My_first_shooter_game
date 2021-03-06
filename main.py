@@ -5,18 +5,30 @@ from action import DoneAction
 from translator import Translator
 from universe import Universe
 
+from coords import CoordConverter
+from Render import Renderer
+
 # from world import World
 # from hero import Hero
 # from editor import Editor
-# from render import Renderer
+
+
+
 
 clock = pygame.time.Clock()
 pygame.init()
-screen = pygame.display.set_mode()
-display = (1000,1000)
+
+pygame.display.init()  # initialization of display
+display = (1000,1000)  # display
+screen = pygame.display.set_mode(display)
 surface = pygame.Surface(display)
+
+scale = (1,1)
 moving = False
 dragging = False
+
+
+
 
 # world = World(surface_altitudes=[(0,1080)], blocks=[], bounce=0)
 # hero = Hero(world=world, x=960, y=400, speed=15, velocity=15, ClimbSpeed=5)
@@ -27,6 +39,8 @@ dragging = False
 # MapMode = True
 
 universe = Universe()
+coords = CoordConverter(scale, ((0,0), display))
+render = Renderer(coords, screen)
 
 
 def main_loop():
@@ -55,4 +69,5 @@ def main_loop():
 
 if __name__ == "__main__":
     main_loop()
+    render.draw(universe.surface_altitudes)
     pygame.quit()
