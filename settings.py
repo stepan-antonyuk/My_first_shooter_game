@@ -29,10 +29,14 @@ TRANSLATION_MAP = {
     },
     'map': {
         'key_pressed': {
-            pygame.K_UP: DebugAction("Pressed UP"),
-            pygame.K_DOWN: DebugAction("Pressed DOWN"),
-            pygame.K_LEFT: DebugAction("Pressed LEFT"),
-            pygame.K_RIGHT: DebugAction("Pressed Right"),
+            # pygame.K_UP: DebugAction("Pressed UP"),
+            pygame.K_UP: PressedArrowV(-1),
+            # pygame.K_DOWN: DebugAction("Pressed DOWN"),
+            pygame.K_DOWN: PressedArrowV(1),
+            # pygame.K_LEFT: DebugAction("Pressed LEFT"),
+            pygame.K_LEFT: PressedArrowH(-1),
+            # pygame.K_RIGHT: DebugAction("Pressed Right"),
+            pygame.K_RIGHT: PressedArrowH(1),
         },
         'key_not_pressed': {
         },

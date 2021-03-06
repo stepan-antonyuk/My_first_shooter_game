@@ -37,8 +37,8 @@ dragging = False
 
 
 universe = Universe()
-coords = CoordConverter(scale, ((0,0), display))
-render = Renderer(coords, screen)
+# coords = CoordConverter(scale, ((0,0), display))
+render = Renderer(screen, ((0,0), display), scale)
 
 
 def main_loop():
@@ -58,7 +58,7 @@ def main_loop():
             break
 
         for action in actions:
-            action.change_universe(universe)
+            action.change_universe(universe, render)
 
         screen.fill((255,255,255))
         render.draw(universe.surface_altitudes)
