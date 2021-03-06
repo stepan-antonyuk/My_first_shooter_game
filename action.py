@@ -79,16 +79,17 @@ class CrouchAction(Action):
     def change_universe(self, universe):
         universe.hero.state = "crouch"
 
-
-class MouseDAction(Action):
-    # print("standing")
-    def change_universe(self, universe):
-        universe.pointPressed = universe.mouseCoords
-        print(universe.pointPressed)
-
-
-class MouseUAction(Action):
-    # print("standing")
-    def change_universe(self, universe: Universe):
-        universe.surface_altitudes.append(universe.pointPressed, universe.mouseCoords)
-        print(universe.mouseCoords)
+# TODO
+# class MouseDAction(Action):
+#     # print("standing")
+#     def change_universe(self, universe):
+#         universe.pointPressed = universe.mouseCoords
+#         print(universe.pointPressed)
+#
+#
+# TODO
+# class MouseUAction(Action):
+#     # print("standing")
+#     def change_universe(self, universe: Universe):
+#         universe.surface_altitudes.append(universe.pointPressed, universe.mouseCoords)
+#         print(universe.mouseCoords)

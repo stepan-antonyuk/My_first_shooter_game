@@ -38,10 +38,12 @@ TRANSLATION_MAP = {
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("game"),
-            pygame.MOUSEBUTTONDOWN: MouseDAction()
+            # TODO
+            # pygame.MOUSEBUTTONDOWN: MouseDAction()
         },
         'key_up': {
-            pygame.MOUSEBUTTONUP: MouseUAction()
+            # TODO
+            # pygame.MOUSEBUTTONUP: MouseUAction()
         }
     }
 }

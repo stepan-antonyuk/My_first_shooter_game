@@ -13,7 +13,8 @@ from universe import Universe
 clock = pygame.time.Clock()
 pygame.init()
 screen = pygame.display.set_mode()
-surface = pygame.Surface((500, 500))
+display = (1000,1000)
+surface = pygame.Surface(display)
 moving = False
 dragging = False
 
