@@ -25,6 +25,10 @@ TRANSLATION_MAP = {
         },
         'key_up': {
             # pygame.K_LSHIFT: StopRunAction()
+        },
+        'mouse_pressed': {
+        },
+        'mouse_not_pressed': {
         }
     },
     'map': {
@@ -37,17 +41,19 @@ TRANSLATION_MAP = {
             pygame.K_LEFT: PressedArrowH(-1),
             # pygame.K_RIGHT: DebugAction("Pressed Right"),
             pygame.K_RIGHT: PressedArrowH(1),
+
         },
         'key_not_pressed': {
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("game"),
-            # TODO
-            # pygame.MOUSEBUTTONDOWN: MouseDAction()
         },
         'key_up': {
-            # TODO
-            # pygame.MOUSEBUTTONUP: MouseUAction()
+        },
+        'mouse_pressed': {
+            (1,0,0): DebugAction("Pressed Mouse"),
+        },
+        'mouse_not_pressed': {
         }
     }
 }

@@ -24,14 +24,25 @@ class Translator:
             if action:
                 return [action]
 
+        # if event.type == pygame.MOUSEBUTTONDOWN:
+        #     action = self._get_map(mode, 'mouse_down').get(event.key)
+        #     if action:
+        #         return [action]
+
         return []
 
     def translate_pressed(self, mode):
         key_pressed = self._get_map(mode, 'key_pressed')
         key_not_pressed = self._get_map(mode, 'key_not_pressed')
+        # mouse_pressed = self._get_map(mode, 'mouse_pressed')
+        # mouse_not_pressed = self._get_map(mode, 'mouse_not_pressed')
 
         pressed = pygame.key.get_pressed()
+        # pressedM = pygame.mouse.get_pressed()
+
         return (
                 [action for key, action in key_pressed.items() if pressed[key]] +
                 [action for key, action in key_not_pressed.items() if not pressed[key]]
+                # + [action for mouse, action in mouse_pressed.items() if not pressedM[mouse]] +
+                # [action for mouse, action in mouse_not_pressed.items() if not pressedM[mouse]]
         )
