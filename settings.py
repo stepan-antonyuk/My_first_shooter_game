@@ -51,10 +51,11 @@ TRANSLATION_MAP = {
         'key_up': {
         },
         'mouse_pressed': {
-            1: DebugAction("Pressed Mouse"),
+            0: DebugAction("Pressed Mouse"),
         },
         'mouse_not_pressed': {
             0: DebugAction("Not Pressed Mouse"),
+            1: DebugAction("____________________________"),
         }
     }
 }

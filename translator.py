@@ -43,6 +43,6 @@ class Translator:
         return (
                 [action for key, action in key_pressed.items() if pressed[key]] +
                 [action for key, action in key_not_pressed.items() if not pressed[key]] +
-                [action for mouse, action in mouse_pressed.items() if pressedM[0]] +
-                [action for mouse, action in mouse_not_pressed.items() if not pressedM[0]]
+                [action for button, action in mouse_pressed.items() if pressedM[button]] +
+                [action for button, action in mouse_not_pressed.items() if not pressedM[button]]
         )
