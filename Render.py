@@ -40,9 +40,9 @@ class Renderer:
 
     def draw(self, surface):
         for line in surface:
-            if(self.in_viewport(line)):
-                pos1 = self.coords.from_universe(line[0])
-                pos2 = self.coords.from_universe(line[1])
-                pygame.draw.line(self.screen, self.color, pos1, pos2)
-                print("draw a line")
-                # print((pos1, pos2))
+            # if(self.in_viewport(line)):
+            pos1 = self.coords.from_universe(line[0])
+            pos2 = self.coords.from_universe(line[1])
+            pygame.draw.line(self.screen, self.color, pos1, pos2)
+            # print("draw a line")
+            # print((pos1, pos2))
