@@ -4,7 +4,7 @@ from Character import Character
 
 class Universe:
     def __init__(self):
-        self.surface_altitudes = []
+        self.surface_altitudes = [((100,100),(500,100))]
         self.collision_points = []
         self.hero = Character()
         self.mode = "map"

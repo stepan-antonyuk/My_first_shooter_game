@@ -51,11 +51,14 @@ TRANSLATION_MAP = {
         'key_up': {
         },
         'mouse_pressed': {
-            0: DebugAction("Pressed Mouse"),
+            0: LMouseP(),
+            # 1: DebugAction("++++++++++++++++++++++++++++"),
+            # 2: DebugAction("R Pressed Mouse"),
         },
         'mouse_not_pressed': {
-            0: DebugAction("Not Pressed Mouse"),
-            1: DebugAction("____________________________"),
+            0: LMouseNP(),
+            # 1: DebugAction("____________________________"),
+            # 2: DebugAction("Not R Pressed Mouse"),
         }
     }
 }

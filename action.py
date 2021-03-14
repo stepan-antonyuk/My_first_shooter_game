@@ -6,7 +6,7 @@ class Action:
     def is_done(self):
         return False
 
-    def change_universe(self, universe: Universe, render: Renderer):
+    def change_universe(self, universe: Universe, render: Renderer):  #
         pass
 
     # def change_renderer(self, render: Renderer):
@@ -102,17 +102,15 @@ class PressedArrowV(Action):
         render.move_V(self.direction)
 
 
-# TODO
-# class MouseDAction(Action):
-#     # print("standing")
-#     def change_universe(self, universe):
-#         universe.pointPressed = universe.mouseCoords
-#         print(universe.pointPressed)
-#
-#
-# TODO
-# class MouseUAction(Action):
-#     # print("standing")
-#     def change_universe(self, universe: Universe):
-#         universe.surface_altitudes.append(universe.pointPressed, universe.mouseCoords)
-#         print(universe.mouseCoords)
+class LMouseP(Action):
+    def change_universe(self, universe, render):
+        universe.pointLeft = universe.mouseCoords
+        # print(universe.mouseCoords)
+
+
+class LMouseNP(Action):
+    def change_universe(self, universe, render):
+        if (universe.pointLeft) != (0,0):
+            universe.surface_altitudes.append((universe.pointPressed, universe.pointLeft))
+        universe.pointPressed = universe.mouseCoords
+        # print(universe.pointPressed)
