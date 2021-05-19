@@ -9,14 +9,13 @@ class Universe:
         self.hero = Character()
         self.mode = "map"
         self.buildMode = "line"
-        self.mouseCoords = (0, 0)
+        self.mouseCoords = (0,0)
         self.pointPressed = (0,0)
         self.pointLeft = (0,0)
         self.gravity = -5
 
     def update(self):
         pass
-        # Character.draw_me()
 
     def gravity(self):
         Character.gravity(self.gravity)

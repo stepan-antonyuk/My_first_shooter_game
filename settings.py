@@ -10,14 +10,15 @@ TRANSLATION_MAP = {
     'game': {
         'key_pressed': {
             pygame.K_UP: JumpAction(),
-            pygame.K_DOWN: DebugAction("CROUCH"),
+            pygame.K_DOWN: CrouchAction(),
             pygame.K_LEFT: MoveAction(-1),
             pygame.K_RIGHT: MoveAction(1),
             pygame.K_LSHIFT: RunAction(),
             # pygame.KMOD_NONE: StandAction()
         },
         'key_not_pressed': {
-            pygame.K_LSHIFT: StopRunAction()
+            pygame.K_LSHIFT: StopRunAction(),
+            pygame.K_DOWN: StopCrouchAction()
         },
         'key_down': {
             pygame.K_e: ChangeModeAction("map"),

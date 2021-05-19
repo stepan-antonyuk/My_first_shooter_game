@@ -54,21 +54,21 @@ class MoveAction(Action):
         self.direction = direction
 
     def change_universe(self, universe, render):
-        # if universe.hero.state != "running":
-        #     universe.hero.state = "moving"
         universe.hero.direction = self.direction
         universe.hero.move()
 
 
 class RunAction(Action):
     def change_universe(self, universe, render):
-        print("run boy run")
+        print("run")
+        universe.hero.state = "running"
         universe.hero.extra = 2
 
 
 class StopRunAction(Action):
     def change_universe(self, universe, render):
-        print("Stop, wait a min")
+        print("stop running")
+        universe.hero.state = "standing"
         universe.hero.extra = 1
 
 
@@ -81,7 +81,16 @@ class StandAction(Action):
 
 class CrouchAction(Action):
     def change_universe(self, universe, render):
+        print("crouch")
         universe.hero.state = "crouch"
+        universe.hero.crouch = 0
+
+
+class StopCrouchAction(Action):
+    def change_universe(self, universe, render):
+        print("stop crouching")
+        universe.hero.state = "standing"
+        universe.hero.crouch = 1
 
 
 class PressedArrowH(Action):

@@ -63,6 +63,7 @@ def main_loop():
 
         screen.fill((255,255,255))
         render.draw(universe.surface_altitudes)
+        render.draw_hero(universe.hero)  # NEW METHOD
         pygame.display.flip()
 
         universe.update()

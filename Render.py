@@ -46,3 +46,7 @@ class Renderer:
             pygame.draw.line(self.screen, self.color, pos1, pos2)
             # print("draw a line")
             # print((pos1, pos2))
+
+    def draw_hero(self, Character):
+        pos1 = self.coords.from_universe(Character.location)
+        pygame.draw.rect(self.screen, self.color, (pos1[0], pos1[1], Character.hit_box[0], Character.hit_box[1]), 0)
