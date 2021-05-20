@@ -53,6 +53,12 @@ class MoveAction(Action):
     def __init__(self, direction):
         self.direction = direction
 
+    def wall(self, universe):
+        pass
+
+    def floor(self, universe):
+        pass
+
     def change_universe(self, universe, render):
         universe.hero.direction = self.direction
         universe.hero.move()
@@ -83,6 +89,7 @@ class CrouchAction(Action):
     def change_universe(self, universe, render):
         print("crouch")
         universe.hero.state = "crouch"
+        universe.hero.hit_box = universe.hero.crouch_hit_box
         universe.hero.crouch = 0
 
 
@@ -90,6 +97,7 @@ class StopCrouchAction(Action):
     def change_universe(self, universe, render):
         print("stop crouching")
         universe.hero.state = "standing"
+        universe.hero.hit_box = universe.hero.stand_hit_box
         universe.hero.crouch = 1
 
 

@@ -9,7 +9,9 @@ class Character:
         self.crouch = 1
         self.direction = 0
         self.extra = 1
-        self.hit_box = (100,100)
+        self.hit_box = (100,-200)
+        self.stand_hit_box = (100, -200)
+        self.crouch_hit_box = (100, -100)
 
     def move(self):
         self.location = (self.location[0] + self.direction * self.speed * self.extra * self.crouch, self.location[1])
