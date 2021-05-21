@@ -46,6 +46,7 @@ class AddBlockAction(Action):
 class JumpAction(Action):
     def change_universe(self, universe, render):
         print("jumping")
+        universe.hero.jump(universe.surface_altitudes)
         universe.hero.state = "jumping"
 
 
@@ -68,14 +69,14 @@ class RunAction(Action):
     def change_universe(self, universe, render):
         print("run")
         universe.hero.state = "running"
-        universe.hero.extra = 2
+        universe.hero.run = universe.hero.run_on
 
 
 class StopRunAction(Action):
     def change_universe(self, universe, render):
         print("stop running")
         universe.hero.state = "standing"
-        universe.hero.extra = 1
+        universe.hero.run = universe.hero.run_off
 
 
 class StandAction(Action):
@@ -90,7 +91,7 @@ class CrouchAction(Action):
         print("crouch")
         universe.hero.state = "crouch"
         universe.hero.hit_box = universe.hero.crouch_hit_box
-        universe.hero.crouch = 0
+        universe.hero.crouch = universe.hero.crouch_on
 
 
 class StopCrouchAction(Action):
@@ -98,7 +99,7 @@ class StopCrouchAction(Action):
         print("stop crouching")
         universe.hero.state = "standing"
         universe.hero.hit_box = universe.hero.stand_hit_box
-        universe.hero.crouch = 1
+        universe.hero.crouch = universe.hero.crouch_off
 
 
 class PressedArrowH(Action):

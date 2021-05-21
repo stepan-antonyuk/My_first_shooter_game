@@ -15,6 +15,8 @@ class Universe:
         self.gravity = -5
 
     def update(self):
+        if(self.mode == "game"):
+            self.hero.gravity(self.surface_altitudes)
         pass
 
     def gravity(self):
