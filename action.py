@@ -125,7 +125,7 @@ class PressedArrowV(Action):
 class LMouseP(Action):
     def change_universe(self, universe, render):
         if(universe.pointPressed == universe.pointZero):
-            universe.pointPressed = pygame.mouse.get_pos()
+            universe.pointPressed = render.coords.to_universe(pygame.mouse.get_pos())
         # print("Left mouse is pressed")
         # print(universe.mouseCoords)
         # print(universe.pointPressed)
@@ -134,7 +134,7 @@ class LMouseP(Action):
 class LMouseNP(Action):
     def change_universe(self, universe, render):
         if (universe.pointPressed != universe.pointZero):
-            universe.surface_altitudes.append((universe.pointPressed, pygame.mouse.get_pos()))
+            universe.surface_altitudes.append((universe.pointPressed, render.coords.to_universe(pygame.mouse.get_pos())))
             print("Line appended")
         universe.pointPressed = universe.pointZero
         # print(universe.pointPressed)
